@@ -28,7 +28,7 @@ class Task < ApplicationRecord
   end
 
   def schedule_reminders
-    EmailReminderJob.set(wait_until: self.deadline - 1.hours).perform_later(self.id)
-    EmailReminderJob.set(wait_until: self.deadline - 24.hours).perform_later(self.id)
+    EmailReminderJob.set(wait_until: self.deadline - 1.hours).perform_later(self.user.id, self.id) if self.deadline > (Time.now + 1.hours)
+    EmailReminderJob.set(wait_until: self.deadline - 24.hours).perform_later(self.user.id, self.id) if self.deadline > (Time.now + 24.hours)
   end
 end

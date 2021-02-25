@@ -10,10 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_25_042303) do
+ActiveRecord::Schema.define(version: 2021_02_25_062803) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "task_transitions", force: :cascade do |t|
+    t.string "to_state", null: false
+    t.text "metadata", default: "{}"
+    t.integer "sort_key", null: false
+    t.integer "task_id", null: false
+    t.boolean "most_recent", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["task_id", "most_recent"], name: "index_task_transitions_parent_most_recent", unique: true, where: "most_recent"
+    t.index ["task_id", "sort_key"], name: "index_task_transitions_parent_sort", unique: true
+  end
 
   create_table "tasks", force: :cascade do |t|
     t.string "name"
@@ -41,5 +53,6 @@ ActiveRecord::Schema.define(version: 2021_02_25_042303) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "task_transitions", "tasks"
   add_foreign_key "tasks", "users"
 end

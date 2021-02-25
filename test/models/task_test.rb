@@ -11,8 +11,13 @@ class TaskTest < ActiveSupport::TestCase
     assert_not task.save
   end
 
-  test "should save task with name and deadline" do
-    task = Task.new(name: "New Task", deadline: Time.now, user: users(:user1))
+  test "should save task with name and deadline in past" do
+    task = Task.new(name: "New Task", deadline: Time.now - 2.hours, user: users(:user1))
+    assert_not task.save
+  end
+
+  test "should save task with name and deadline in future" do
+    task = Task.new(name: "New Task", deadline: Time.now + 2.hours, user: users(:user1))
     assert task.save
   end
 end

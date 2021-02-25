@@ -4,8 +4,15 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
-# column: value
+# ../fixtures/users.yml.erb
+user1:
+  email: user1@mysite.com
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  confirmed_at: <%= Time.zone.now - 1.hour %>
+  confirmation_sent_at: <%= Time.zone.now - 2.hours %>
+
+user2:
+  email: user2@mysite.com
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  confirmed_at: <%= Time.zone.now - 1.hour %>
+  confirmation_sent_at: <%= Time.zone.now - 2.hours %>

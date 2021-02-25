@@ -41,8 +41,8 @@ class GoogleController < ApplicationController
 
   def client_options
     {
-        client_id: "210753147838-a43v6a6ante902iflv1op3bttebqb5ao.apps.googleusercontent.com",
-        client_secret: "26FzhINJ73AL7GHLCXc4BjRm",
+        client_id: ENV["GOOGLE_CLIENT_KEY"],
+        client_secret: ENV["GOOGLE_CLIENT_SECRET"],
         authorization_uri: 'https://accounts.google.com/o/oauth2/auth',
         token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
         scope: Google::Apis::CalendarV3::AUTH_CALENDAR,

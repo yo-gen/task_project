@@ -36,6 +36,12 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to tasks_url
   end
 
+  test "should update task with state" do
+    patch task_url(@task), params: { task: { deadline: @task.deadline + 1.days, description: @task.description, name: @task.name, user_id: @task.user_id }, state: "in_progress" }
+    assert_equal @task.current_state, "in_progress"
+    assert_redirected_to tasks_url
+  end
+
   test "should destroy task" do
     assert_difference('Task.count', -1) do
       delete task_url(@task)

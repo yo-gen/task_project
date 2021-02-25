@@ -28,8 +28,15 @@
       <%= form.label :deadline, class: "block text-gray-700 text-sm font-bold mb-2" %>
       <%= form.text_field :deadline, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline", onfocus: "(this.type='datetime-local')" %>
     </div>
-
     <br>
+    <% if task.persisted? %>
+      <div class="mb4">
+        <span class="text-xs">Current state is <%= task.current_state %></span>
+        <%= form.label :transition_state, class: "block text-gray-700 text-sm font-bold mb-2" %>
+        <%= select_tag "state", options_for_select(TaskStateMachine.states, task.current_state), class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+      </div>
+      <br>
+    <% end %>
 
     <div class="flex items-center justify-between">
       <%= form.submit "Save Task", class: "bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>

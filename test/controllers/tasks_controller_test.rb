@@ -1,8 +1,11 @@
 require 'test_helper'
 
 class TasksControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+
   setup do
     @task = tasks(:one)
+    sign_in users(:user1)
   end
 
   test "should get index" do
@@ -17,10 +20,10 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
 
   test "should create task" do
     assert_difference('Task.count') do
-      post tasks_url, params: { task: { deadline: @task.deadline, description: @task.description, name: @task.name, user_id: @task.user_id } }
+      post tasks_url, params: { task: { deadline: @task.deadline + 1.days, description: @task.description, name: @task.name, user_id: @task.user_id } }
     end
 
-    assert_redirected_to task_url(Task.last)
+    assert_redirected_to tasks_url
   end
 
   test "should get edit" do
@@ -29,8 +32,8 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update task" do
-    patch task_url(@task), params: { task: { deadline: @task.deadline, description: @task.description, name: @task.name, user_id: @task.user_id } }
-    assert_redirected_to task_url(@task)
+    patch task_url(@task), params: { task: { deadline: @task.deadline + 1.days, description: @task.description, name: @task.name, user_id: @task.user_id } }
+    assert_redirected_to tasks_url
   end
 
   test "should destroy task" do

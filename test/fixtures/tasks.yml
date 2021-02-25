@@ -4,10 +4,10 @@ one:
   name: MyString
   description: MyText
   deadline: 2021-02-25 09:53:03
-  user: one
+  user: user1
 
 two:
   name: MyString
   description: MyText
   deadline: 2021-02-25 09:53:03
-  user: two
+  user: user2

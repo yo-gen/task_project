@@ -92,6 +92,12 @@
                   </svg>
                 </button>
               <% end %>
+
+              <%= link_to new_event_path(task.id), method: :post do %>
+                <button class="border-2 border-red-200 rounded-md p-1">
+                  <span>Add to calendar</span>
+                </button>
+              <% end %>
             </div>
 
           </td>

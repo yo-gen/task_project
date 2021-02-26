@@ -4,7 +4,7 @@ class TasksController < ApplicationController
 
   # GET /tasks or /tasks.json
   def index
-    @tasks = Task.all
+    @tasks = current_user.tasks
   end
 
   # GET /tasks/new
@@ -58,7 +58,10 @@ class TasksController < ApplicationController
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_task
-    @task = Task.find(params[:id])
+    @task = current_user.tasks.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    # Redirect to not found if win is private and does not belong to user
+    redirect_to '/404'
   end
 
   # Only allow a list of trusted parameters through.

@@ -1,5 +1,5 @@
 class TaskReminderMailer < ApplicationMailer
-  default from: "from@task_project.com"
+  default from: "in.yogen@gmail.com"
 
   def notification_email(user, task)
     @user = user
